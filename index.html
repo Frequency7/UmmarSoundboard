@@ -1,130 +1,66 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <link href="Main.css" rel="stylesheet"/>
-        <script src="jquery-1.10.2.min.js"></script>
-        <title>UMMAR'S SOUNDBOARD</title>
-    </head>
-    <body>
-        
-        <div id="bg">
-            <div id="blackLayer"></div>
-            <img src="First.jpg"/>
+<head>
+	<title>music player</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+  <div class="main">
+  	<p id="logo"><i class="fa fa-music"></i>Ummar's Soundboard</p>
+    
+        <!-- show_song_number -->
+        <div class="show_song_no">
+          <p id="present">1</p>
+          <p>/</p>
+          <p id="total">5</p>
         </div>
-       
-        <div id="main">
-            <div id="image">
-                <img src="First.jpg"/>
-            </div>
-            <div id="player">
-                <div id="songTitle">Demo</div>
-                <div id="buttons">
-                    <button id="pre" onclick="pre()"><img src="Pre.png" height="90%" width="90%"/></button>
-                    <button id="play" onclick="playOrPauseSong()"><img src="Pause.png"/></button>
-                    <button id="next" onclick="next()"><img src="Next.png" height="90%" width="90%"/></button>
-                </div>
-                
-                <div id="seek-bar">
-                    <div id="fill"></div>
-                    <div id="handle"></div>
-                </div>
-            </div>
+
+
+    <!--- left part --->
+     <div class="left">
+
+      <!--- song img --->
+      <img id="track_image">
+         <div class="volume">
+            <p id="volume_show">90</p>
+            <i class="fa fa-volume-up" aria-hidden="true" onclick="mute_sound()" id="volume_icon"></i>
+            <input type="range" min="0" max="100" value="90" onchange="volume_change()" id="volume">  
+         </div>
+
+     </div>
+ 
+     <!--- right part --->
+  	 <div class="right">
+       <!--- song title & artist name --->
+       <div class="song_detail">
+           <p id="title">title.mp3</p>
+           <p id="artist">Artist name</p>
+       </div>
+
+      <!--- middle part --->
+  	 	<div class="middle">
+  	       <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward" aria-hidden="true"></i></button>
+      	   <button onclick="justplay()" id="play"><i class="fa fa-play" aria-hidden="true"></i></button>
+  	       <button onclick="next_song()" id="next"><i class="fa fa-step-forward" aria-hidden="true"></i></button>
+  	   </div>
+
+       <!--- song duration part --->
+        <div class="duration">
+           <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
+           <button id="auto" onclick="autoplay_switch()">Auto &nbsp;<i class="fa fa-circle-o-notch" aria-hidden="true"></i></button>
         </div>
-    </body>
-    <script type="text/javascript">
-    
-        var songs = ["Superidol.mp3","Scream.mp3","dick.mp3"];
-        var pics = ["First.jpg","Second.jpg","Third.jpg"];
-        
-        var songTitle = document.getElementById("songTitle");
-        var fillBar = document.getElementById("fill");
-        
-        var song = new Audio();
-        var Songritenow = 0;    // it point to the current song
-        
-        window.onload = playSong;   // it will call the function playSong when window is load
-        
-        function playSong(){
-            
-            song.src = songs[Songritenow];  //set the source of 0th song 
-            
-            songTitle.textContent = songs[Songritenow]; // set the title of song
-            
-            song.play();    // play the song
-        }
-        
-        function playOrPauseSong(){
-            
-            if(song.paused){
-                song.play();
-                $("#play img").attr("src","Pause.png");
-            }
-            else{
-                song.pause();
-                $("#play img").attr("src","Play.png");
-            }
-        }
-        
-        song.addEventListener('timeupdate',function(){ 
-            
-            var position = song.currentTime / song.duration;
-            
-            fillBar.style.width = position * 100 +'%';
-        });
-        
-    
-        function next(){
-            
-            Songritenow++;
-            if(Songritenow > 2){
-                Songritenow = 0;
-            }
-            playSong();
-            $("#play img").attr("src","Pause.png");
-            $("#image img").attr("src",pics[Songritenow]);
-            $("#bg img").attr("src",pics[Songritenow]);
-        }
-    
-        function pre(){
-            
-            Songritenow--;
-            if(Songritenow < 0){
-                Songritenow = 2;
-            }
-            playSong();
-            $("#play img").attr("src","Pause.png");
-            $("#image img").attr("src",pics[Songritenow]);
-            $("#bg img").attr("src",pics[Songritenow]);
-        }
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </script>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+           
+  	</div>
+
+
+  </div>
+   
+  <!--- Add javascript file --->
+  <script src="main.js"></script>
+
+</body>
 </html>
